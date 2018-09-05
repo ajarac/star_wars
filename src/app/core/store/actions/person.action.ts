@@ -6,8 +6,17 @@ export const GET_LIST_PERSONS_SUCCESS = '[Person] Get List Person Success';
 export const GET_NEXT_PAGE_PERSON = '[Person] Get Next Page Person';
 export const GET_PREVIOUS_PAGE_PERSON = '[Person] Get Previous Page Person';
 
+export const GET_MY_LIST = '[Person] Get My List';
+export const GET_MY_LIST_SUCCESS = '[Person] Get My List Success';
+
 export const GET_DETAIL_PERSON = '[Person] Get Detail Person';
 export const GET_DETAIL_PERSON_SUCCESS = '[Person] Get Detail Person Success';
+
+export const CREATE_PERSON = '[Person] Create Person';
+
+export const UPDATE_PERSON = '[Person] Update Person';
+
+export const DELETE_PERSON = '[Person] Delete Person';
 
 export class GetListPersons implements Action {
 	readonly type = GET_LIST_PERSONS;
@@ -26,13 +35,37 @@ export class GetPreviousPagePersons implements Action {
 	readonly type = GET_PREVIOUS_PAGE_PERSON;
 }
 
+export class GetMyList implements Action {
+	readonly type = GET_MY_LIST;
+}
+
+export class GetMyListSuccess implements Action {
+	readonly type = GET_MY_LIST_SUCCESS;
+	constructor(public payload: Person[]) {}
+}
+
 export class GetDetailPerson implements Action {
 	readonly type = GET_DETAIL_PERSON;
 	constructor(public payload: Person) {}
 }
 
-export class GetPersonByIdSuccess implements Action {
+export class GetDetailPersonSuccess implements Action {
 	readonly type = GET_DETAIL_PERSON_SUCCESS;
+	constructor(public payload: Person) {}
+}
+
+export class CreatePerson implements Action {
+	readonly type = CREATE_PERSON;
+	constructor(public payload: Person) {}
+}
+
+export class UpdatePerson implements Action {
+	readonly type = UPDATE_PERSON;
+	constructor(public payload: Person) {}
+}
+
+export class DeletePerson implements Action {
+	readonly type = DELETE_PERSON;
 	constructor(public payload: Person) {}
 }
 
@@ -41,5 +74,10 @@ export type PersonType =
 	| GetListPersonsSuccess
 	| GetNextPagePersons
 	| GetPreviousPagePersons
+	| GetMyList
+	| GetMyListSuccess
 	| GetDetailPerson
-	| GetPersonByIdSuccess;
+	| GetDetailPersonSuccess
+	| CreatePerson
+	| UpdatePerson
+	| DeletePerson;

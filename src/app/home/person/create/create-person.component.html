@@ -1,0 +1,41 @@
+<div class="row">
+  <div class="col-md-1">
+    <button class="btn btn-info" (click)="goBack()"><i class="fa fa-arrow-left"></i></button>
+  </div>
+  <div class="col">
+    <h4 *ngIf="isNew">Create Person</h4>
+    <h4 *ngIf="!isNew">Edit {{ (person$ | async)?.name }}</h4>
+  </div>
+  <div class="col-md-1">
+    <button class="btn btn-success" (click)="savePerson()" [disabled]="!formGroup?.valid">Save</button>
+  </div>
+</div>
+<br>
+<form *ngIf="formGroup" [formGroup]="formGroup">
+  <div class="form-group" *ngFor="let titleKeys of titleKeysPerson">
+    <ng-container *ngIf="titleKeys.type">
+      <label [for]="titleKeys.key">{{ titleKeys.title }}</label>
+      <ng-container [ngSwitch]="titleKeys.type">
+        <input *ngSwitchCase="typeInput.INPUT" type="text" class="form-control" [formControlName]="titleKeys.key">
+
+        <ng-container *ngSwitchCase="typeInput.RADIO">
+          <div class="form-check" *ngFor="let data of titleKeys.data">
+            <label class="form-check-label">
+              <input type="radio" class="form-check-input" [formControlName]="titleKeys.key" [value]="data">{{
+              data }}
+            </label>
+          </div>
+        </ng-container>
+        <select *ngSwitchCase="typeInput.SELECT" class="form-control" [formControlName]="titleKeys.key">
+          <ng-container *ngIf="titleKeys.key === 'homeworld'">
+            <option *ngFor="let data of (listPlanet$ | async)">{{ data.name }}</option>
+          </ng-container>
+          <ng-container *ngIf="titleKeys.key !== 'homeworld'">
+            <option *ngFor="let data of titleKeys.data">{{ data }}</option>
+          </ng-container>
+        </select>
+      </ng-container>
+      <small id="emailHelp" class="form-text text-muted">*Required.</small>
+    </ng-container>
+  </div>
+</form>

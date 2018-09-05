@@ -16,19 +16,34 @@ export const ROUTER_HOME: Routes = [
 				component: Components.PersonListComponent
 			},
 			{
+				path: 'mylist',
+				component: Components.PersonListComponent
+			},
+			{
 				path: 'detail',
 				component: Components.PersonDetailComponent
+			},
+			{
+				path: 'create',
+				component: Components.CreatePersonComponent
+			},
+			{
+				path: 'edit',
+				component: Components.CreatePersonComponent
 			}
 		]
 	},
 	{
-    path: 'planets',
-    children: [{
-      path: '',
-      component: Components.PlanetComponent,
-    }, {
-      path: 'detail',
-      component: Components.PlanetDetailComponent
-    }]
+		path: 'planets',
+		children: [
+			{
+				path: '',
+				component: Components.PlanetComponent
+			},
+			{
+				path: 'detail',
+				component: Components.PlanetDetailComponent
+			}
+		]
 	}
 ];

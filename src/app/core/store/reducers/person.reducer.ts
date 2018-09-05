@@ -4,11 +4,13 @@ import { Person, PaginationAPI } from '@global/models';
 export interface PersonState {
 	pagination: PaginationAPI<Person>;
 	person: Person;
+	myList: Person[];
 }
 
 export const initialState: PersonState = {
 	pagination: null,
-	person: null
+	person: null,
+	myList: []
 };
 
 export function reducer(state: PersonState = initialState, action: fromPerson.PersonType): PersonState {
@@ -18,6 +20,14 @@ export function reducer(state: PersonState = initialState, action: fromPerson.Pe
 			return {
 				...state,
 				pagination
+			};
+		}
+
+		case fromPerson.GET_MY_LIST_SUCCESS: {
+			const myList: Person[] = action.payload;
+			return {
+				...state,
+				myList
 			};
 		}
 
@@ -44,3 +54,4 @@ export function reducer(state: PersonState = initialState, action: fromPerson.Pe
 
 export const getPagination = (state: PersonState) => state.pagination;
 export const getPerson = (state: PersonState) => state.person;
+export const getMyList = (state: PersonState) => state.myList;

@@ -8,6 +8,14 @@
   <h4>{{ person.name }}</h4>
   <br>
   <div class="row">
+    <div class="col-md-6" *ngFor="let keyTitle of titleKeysPerson">
+      <div class="row">
+        <div class="col-md-4"><label>{{ keyTitle.title }}:</label></div>
+        <div class="col-md-8">{{ person[keyTitle.key] }}</div>
+      </div>
+    </div>
+  </div>
+  <!--<div class="row">
     <div class="col-md-6">
       <div class="row">
         <div class="col-md-4"><label>Height:</label></div>
@@ -53,8 +61,8 @@
     <div class="col-md-6">
       <div class="row">
         <div class="col-md-4"><label>Homeworld:</label></div>
-        <div class="col-md-8">{{ (planet$ | async)?.name }}</div>
+        <div class="col-md-8">{{  person.homeworld }}</div>
       </div>
     </div>
-  </div>
+  </div>-->
 </ng-container>

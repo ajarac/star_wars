@@ -3,14 +3,14 @@ import { PaginationAPI, Person } from 'global';
 import { Injectable } from '@angular/core';
 import { Store, Action } from '@ngrx/store';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { mergeMap, map, withLatestFrom } from 'rxjs/operators';
+import { mergeMap, map, withLatestFrom, tap } from 'rxjs/operators';
 
 import { CoreState } from '../reducers';
 import * as personActions from '../actions/person.action';
 import * as planetActions from '../actions/planet.action';
 import * as fromSelectors from '../selectors';
 import { PersonService } from '@core/services';
-import { from } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 @Injectable()
 export class PersonEffect {
@@ -59,19 +59,56 @@ export class PersonEffect {
 	);
 
 	@Effect()
+	getMyList$ = this.actions$.pipe(
+		ofType(personActions.GET_MY_LIST),
+		mergeMap(() =>
+			this.personService.getMyList().pipe(map((persons: Person[]) => new personActions.GetMyListSuccess(persons)))
+		)
+	);
+
+	@Effect()
 	getPersonById$ = this.actions$.pipe(
 		ofType(personActions.GET_DETAIL_PERSON),
 		map((action: personActions.GetDetailPerson) => action.payload),
-		mergeMap((person: Person) =>
-			this.personService.getPersonByUrl(person.url).pipe(
+		mergeMap((person: Person) => {
+			let observable: Observable<Person>;
+			if (person.url) {
+				observable = this.personService.getPersonByUrl(person.url);
+			} else {
+				observable = this.personService.getPersonById(person.id);
+			}
+			return observable.pipe(
 				mergeMap((p: Person) => {
-					this.router.navigate([ '/persons', 'detail' ]);
-					return from([
-						new personActions.GetPersonByIdSuccess(p),
-						new planetActions.GetPlanetDetailByPerson(p.homeworld)
-					]);
+					const actions: Action[] = [ new personActions.GetDetailPersonSuccess(p) ];
+					if (person.url) {
+						this.router.navigate([ '/persons', 'detail' ]);
+						actions.push(new planetActions.GetPlanetDetailByPerson(p.homeworld));
+					}
+					return from(actions);
 				})
-			)
-		)
+			);
+		})
+	);
+
+	@Effect({ dispatch: false })
+	createPerson$ = this.actions$.pipe(
+		ofType(personActions.CREATE_PERSON, personActions.UPDATE_PERSON, personActions.DELETE_PERSON),
+		mergeMap(({ type, payload }: { type: string; payload: Person }) => {
+			let observable: Observable<any>;
+			switch (type) {
+				case personActions.CREATE_PERSON:
+					observable = this.personService.createPerson(payload);
+					break;
+				case personActions.UPDATE_PERSON:
+					observable = this.personService.updatePerson(payload);
+					break;
+				case personActions.DELETE_PERSON:
+					observable = this.personService
+						.deletePerson(payload)
+						.pipe(tap(() => this.store.dispatch(new personActions.GetMyList())));
+					break;
+			}
+			return observable.pipe(tap(() => this.router.navigate([ '/persons', 'mylist' ])));
+		})
 	);
 }

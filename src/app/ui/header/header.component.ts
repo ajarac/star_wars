@@ -12,6 +12,10 @@ export class HeaderComponent {
 			title: 'Persons'
 		},
 		{
+			router: [ '/persons', 'mylist' ],
+			title: 'My list'
+		},
+		{
 			router: [ '/planets' ],
 			title: 'Planets'
 		}
