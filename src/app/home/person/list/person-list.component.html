@@ -1,0 +1,20 @@
+<h1>Persons</h1>
+<ng-container *ngIf="persons$ | async as persons">
+  <app-list-item *ngFor="let person of persons.results">
+    <div name>{{ person.name }}</div>
+    <div buttons>
+      <button class="btn btn-info" (click)="showPerson(person)">Show</button>
+      <button class="btn btn-warning">Edit</button>
+      <button class="btn btn-danger">Delete</button>
+    </div>
+  </app-list-item>
+  <div class="row align-items-center">
+    <div class="col-md-1">
+      <button class="btn btn-info" (click)="previous()" [disabled]="!persons.previous"><</button>
+    </div>
+    <div class="col-md-1">Total: {{ persons.count }}</div>
+    <div class="col-md-1">
+      <button class="btn btn-info" (click)="next()" [disabled]="!persons.next">></button>
+    </div>
+  </div>
+</ng-container>

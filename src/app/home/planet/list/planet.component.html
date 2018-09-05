@@ -1,0 +1,19 @@
+<h1>Planets</h1>
+<ng-container *ngIf="planets$ | async as planets">
+  <app-list-item *ngFor="let planet of planets.results">
+    <div name>{{ planet.name }}</div>
+    <div buttons>
+        <button class="btn btn-info" (click)="showPlanet(planet)">Show</button>
+      </div>
+  </app-list-item>
+  <div class="row align-items-center">
+    <div class="col-md-1">
+      <button class="btn btn-info" (click)="previous()" [disabled]="!planets.previous"><</button>
+    </div>
+    <div class="col-md-1">Total: {{ planets.count }}</div>
+    <div class="col-md-1">
+      <button class="btn btn-info" (click)="next()" [disabled]="!planets.next">></button>
+    </div>
+  </div>
+</ng-container>
+

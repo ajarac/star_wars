@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-md-1">
+      <button class="btn btn-info" (click)="goBack()"><i class="fa fa-arrow-left"></i></button>
+    </div>
+  </div>
+  <br>
+  <ng-container *ngIf="planet$ | async as planet">
+    <h4>{{ planet.name }}</h4>
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4"><label>Rotation Period:</label></div>
+          <div class="col-md-8">{{ planet.rotation_period }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4"><label>Orbital Period:</label></div>
+          <div class="col-md-8">{{ planet.orbital_period }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4"><label>Diameter:</label></div>
+          <div class="col-md-8">{{ planet.diameter }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4"><label>Climate:</label></div>
+          <div class="col-md-8">{{ planet.climate }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4"><label>Gravity:</label></div>
+          <div class="col-md-8">{{ planet.gravity }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4"><label>Terrain:</label></div>
+          <div class="col-md-8">{{ planet.terrain }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4"><label>Surface Water:</label></div>
+          <div class="col-md-8">{{ planet.surface_water }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-4"><label>Population:</label></div>
+          <div class="col-md-8">{{ planet.population }}</div>
+        </div>
+      </div>
+    </div>
+  </ng-container>

@@ -1,0 +1,62 @@
+<div class="row">
+  <div class="col-md-1">
+    <button class="btn btn-info" (click)="goBack()"><i class="fa fa-arrow-left"></i></button>
+  </div>
+</div>
+<br>
+<ng-container *ngIf="person$ | async as person">
+  <h4>{{ person.name }}</h4>
+  <br>
+  <form>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-3"><label>Height:</label></div>
+          <div class="col-md-9">{{ person.height }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-3"><label>Mass:</label></div>
+          <div class="col-md-9">{{ person.mass }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-3"><label>Hard Color:</label></div>
+          <div class="col-md-9">{{ person.hair_color }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-3"><label>Skin Color:</label></div>
+          <div class="col-md-9">{{ person.skin_color }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-3"><label>Eye Color:</label></div>
+          <div class="col-md-9">{{ person.eye_color }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-3"><label>Birth year:</label></div>
+          <div class="col-md-9">{{ person.birth_year }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-3"><label>Gender:</label></div>
+          <div class="col-md-9">{{ person.gender }}</div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-3"><label>Homeworld:</label></div>
+          <div class="col-md-9">{{ (planet$ | async)?.name }}</div>
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
